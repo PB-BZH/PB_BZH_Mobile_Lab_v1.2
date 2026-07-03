@@ -44,6 +44,8 @@ public sealed class ProfileStorageService {
   public async Task SaveProfileAsync(
     LicenseProfile profile) {
 
+    EnsureProfileId(profile);
+
     if (string.IsNullOrWhiteSpace(profile.ProfileName)) {
       profile.ProfileName = profile.DisplayName;
     }
@@ -59,12 +61,21 @@ public sealed class ProfileStorageService {
     await File.WriteAllTextAsync(
       filePath,
       json);
+
+    DeletePreviousProfileFile(
+      profile,
+      filePath);
+
+    profile.SourceFilePath = filePath;
   }
 
   internal void DeleteProfile(
     LicenseProfile profile) {
 
-    string filePath = GetProfileFilePath(profile);
+    string filePath =
+      !string.IsNullOrWhiteSpace(profile.SourceFilePath)
+        ? profile.SourceFilePath
+        : GetProfileFilePath(profile);
 
     if (File.Exists(filePath)) {
       File.Delete(filePath);
@@ -82,9 +93,19 @@ public sealed class ProfileStorageService {
         return null;
       }
 
-      return JsonSerializer.Deserialize<LicenseProfile>(
+      LicenseProfile? profile =
+        JsonSerializer.Deserialize<LicenseProfile>(
         json,
         JsonOptions);
+
+      if (profile is null) {
+        return null;
+      }
+
+      EnsureProfileId(profile);
+      profile.SourceFilePath = filePath;
+
+      return profile;
     }
     catch {
       return null;
@@ -94,14 +115,35 @@ public sealed class ProfileStorageService {
   private static string GetProfileFilePath(
     LicenseProfile profile) {
 
-    string profileName =
-      !string.IsNullOrWhiteSpace(profile.ProfileName)
-        ? profile.ProfileName
-        : profile.DisplayName;
+    EnsureProfileId(profile);
 
     return Path.Combine(
       ProfilesDirectory,
-      SanitizeFileName(profileName) + ".json");
+      SanitizeFileName(profile.ProfileId) + ".profile.json");
+  }
+
+  private static void EnsureProfileId(
+    LicenseProfile profile) {
+
+    if (string.IsNullOrWhiteSpace(profile.ProfileId)) {
+      profile.ProfileId = Guid.NewGuid().ToString("N");
+    }
+  }
+
+  private static void DeletePreviousProfileFile(
+    LicenseProfile profile,
+    string currentFilePath) {
+
+    if (string.IsNullOrWhiteSpace(profile.SourceFilePath)
+        || string.Equals(
+          profile.SourceFilePath,
+          currentFilePath,
+          StringComparison.OrdinalIgnoreCase)
+        || !File.Exists(profile.SourceFilePath)) {
+      return;
+    }
+
+    File.Delete(profile.SourceFilePath);
   }
 
   private static string SanitizeFileName(

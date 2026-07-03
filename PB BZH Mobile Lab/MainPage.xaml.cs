@@ -4,7 +4,6 @@ using PB_BZH_Mobile_Lab.Core.Services;
 namespace PB_BZH_Mobile_Lab;
 
 public partial class MainPage: ContentPage {
-  private readonly LicenseJsonService _licenseJsonService = new();
   private LicenseProfile _profile = new();
   private readonly ProfileStorageService _profileStorageService = new();
   private readonly LicenseFileService _licenseFileService = new();
@@ -37,7 +36,7 @@ public partial class MainPage: ContentPage {
   }
 
   private LicenseProfile ApplyUIToProfile() {
-    LicenseProfile profile = pickerProfiles.SelectedItem as LicenseProfile ?? new LicenseProfile();
+    LicenseProfile profile = _profile;
     profile.ProductId = txtProductId.Text?.Trim() ?? string.Empty;
     profile.LicenseId = txtLicenseId.Text?.Trim() ?? string.Empty;
     profile.CustomerName = txtCustomerName.Text?.Trim() ?? string.Empty;
@@ -61,7 +60,7 @@ public partial class MainPage: ContentPage {
   }
 
   private async Task LoadProfilesAsync(
-    string? selectedProfileName = null) {
+    string? selectedProfileId = null) {
 
     _loadingProfiles = true;
 
@@ -75,16 +74,18 @@ public partial class MainPage: ContentPage {
         new Binding(nameof(LicenseProfile.DisplayName));
 
       if (_profiles.Count == 0) {
+        pickerProfiles.SelectedIndex = -1;
+        ApplyProfileToUI(CreateEmptyProfile());
         return;
       }
 
       int selectedIndex = 0;
 
-      if (!string.IsNullOrWhiteSpace(selectedProfileName)) {
+      if (!string.IsNullOrWhiteSpace(selectedProfileId)) {
         int index = _profiles.FindIndex(p =>
           string.Equals(
-            p.ProfileName,
-            selectedProfileName,
+            p.ProfileId,
+            selectedProfileId,
             StringComparison.OrdinalIgnoreCase));
 
         if (index >= 0) {
@@ -212,6 +213,7 @@ public partial class MainPage: ContentPage {
       ProductId = string.Empty,
       LicenseId = string.Empty,
       CustomerName = string.Empty,
+      Site = string.Empty,
       EmailContact = string.Empty,
       MachineHash = string.Empty,
       ValidUntil = today.AddYears(1),
@@ -229,7 +231,7 @@ public partial class MainPage: ContentPage {
 
       await _profileStorageService.SaveProfileAsync(profile);
 
-      await LoadProfilesAsync(profile.ProfileName);
+      await LoadProfilesAsync(profile.ProfileId);
 
       _lastGeneratedLicenseFilePath =
         await _licenseFileService.GenerateLicenseFileAsync(profile);
@@ -262,7 +264,7 @@ public partial class MainPage: ContentPage {
 
     await _profileStorageService.SaveProfileAsync(profile);
 
-    await LoadProfilesAsync(profile.ProfileName);
+    await LoadProfilesAsync(profile.ProfileId);
 
     await DisplayAlertAsync(
       "Profil",
@@ -271,7 +273,15 @@ public partial class MainPage: ContentPage {
   }
 
   private void BtnNewProfile_Clicked(object sender,EventArgs e) {
-    ApplyProfileToUI(CreateEmptyProfile());
+    _loadingProfiles = true;
+
+    try {
+      pickerProfiles.SelectedIndex = -1;
+      ApplyProfileToUI(CreateEmptyProfile());
+    }
+    finally {
+      _loadingProfiles = false;
+    }
   }
 
   private void BtnToggleResult_Clicked(object? sender,EventArgs e) {
