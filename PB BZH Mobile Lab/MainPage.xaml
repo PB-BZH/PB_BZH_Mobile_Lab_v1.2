@@ -118,6 +118,12 @@
                     Grid.Column="2"
                     Text="Importer la clé privée"
                     Clicked="BtnImportPrivateKey_Clicked" />
+                <Label   
+                    Grid.Column="2"
+                    x:Name="lblPrivateKeyStatus"
+                    Text="Clé privée : non vérifiée"
+                    FontSize="12"
+                    HorizontalOptions="Center" />
             </Grid>
             
             <Editor

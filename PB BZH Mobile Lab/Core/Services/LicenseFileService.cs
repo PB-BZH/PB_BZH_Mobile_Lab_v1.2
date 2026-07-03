@@ -123,6 +123,13 @@ public sealed class LicenseFileService {
     SecureStorage.Default.Remove(PrivateKeyStorageKey);
   }
 
+  public static async Task<bool> HasPrivateKeyAsync() {
+    string? privateKeyPem =
+      await SecureStorage.Default.GetAsync(PrivateKeyStorageKey);
+
+    return !string.IsNullOrWhiteSpace(privateKeyPem);
+  }
+
   private static string BuildFileName(
     LicenseProfile profile) {
 

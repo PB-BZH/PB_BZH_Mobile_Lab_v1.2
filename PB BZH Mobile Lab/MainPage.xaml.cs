@@ -58,6 +58,7 @@ public partial class MainPage: ContentPage {
     base.OnAppearing();
 
     await LoadProfilesAsync();
+    await RefreshPrivateKeyStatusAsync();
   }
 
   private async Task LoadProfilesAsync(
@@ -100,6 +101,19 @@ public partial class MainPage: ContentPage {
     finally {
       _loadingProfiles = false;
     }
+  }
+
+  private async Task RefreshPrivateKeyStatusAsync() {
+    bool hasPrivateKey =
+      await LicenseFileService.HasPrivateKeyAsync();
+
+    lblPrivateKeyStatus.Text = hasPrivateKey
+      ? "Clé privée : importée"
+      : "Clé privée : absente";
+
+    lblPrivateKeyStatus.TextColor = hasPrivateKey
+      ? Colors.DarkGreen
+      : Colors.DarkRed;
   }
 
   private static string ConstruireNomProfil(
@@ -187,6 +201,7 @@ public partial class MainPage: ContentPage {
       using RSA rsa = RSA.Create();
       rsa.ImportFromPem(pem);
       await LicenseFileService.SavePrivateKeyAsync(pem);
+      await RefreshPrivateKeyStatusAsync();
       await DisplayAlertAsync("Clé privée","La clé privée RSA a été importée.","OK");
     }
     catch (Exception exception) {
