@@ -127,61 +127,43 @@
                 Clicked="BtnGenerateLicense_Clicked" />
 
             <Grid
-                ColumnDefinitions="*,*"
+                ColumnDefinitions="*,*,*"
                 RowDefinitions="Auto,Auto"
-                ColumnSpacing="8"
-                RowSpacing="8">
+                ColumnSpacing="6"
+                RowSpacing="6">
+
                 <Button
                     Text="Nouveau"
                     Clicked="BtnNewProfile_Clicked" />
 
                 <Button
                     Grid.Column="1"
-                    Text="Charger"
-                    Clicked="BtnLoadProfile_Clicked" />
-
-                <Button
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
                     Text="Enregistrer"
                     Clicked="BtnSaveProfile_Clicked" />
-            </Grid>
-
-            <Button
-                Text="Supprimer le profil"
-                Clicked="BtnDeleteProfile_Clicked"
-                BackgroundColor="#8A1F1F"
-                TextColor="White" />
-
-            <Button
-                Text="Supprimer la clé privée"
-                Clicked="BtnDeletePrivateKey_Clicked"
-                BackgroundColor="#8A1F1F"
-                TextColor="White" />
-            
-            <Grid
-                ColumnDefinitions="*,*"
-                RowDefinitions="Auto,Auto"
-                ColumnSpacing="8"
-                RowSpacing="8">
 
                 <Button
+                    Grid.Column="2"
                     Text="Partager"
                     Clicked="BtnShareLicense_Clicked" />
 
                 <Button
-                    x:Name="btnToggleResult"
-                    Grid.Column="1"
-                    Text="JSON"
-                    Clicked="BtnToggleResult_Clicked" />
+                    Grid.Row="1"
+                    Text="Profils"
+                    Clicked="BtnProfileActions_Clicked" />
 
                 <Button
                     Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    Text="Importer la clé privée"
-                    Clicked="BtnImportPrivateKey_Clicked" />                
+                    Grid.Column="1"
+                    Text="Clé privée"
+                    Clicked="BtnPrivateKeyActions_Clicked" />
+
+                <Button
+                    x:Name="btnToggleResult"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Text="JSON"
+                    Clicked="BtnToggleResult_Clicked" />
             </Grid>
-            
             <Label   
                     x:Name="lblPrivateKeyStatus"
                     Text="Clé privée : non vérifiée"

@@ -358,4 +358,50 @@ public partial class MainPage: ContentPage {
       "La clé privée a été supprimée.",
       "OK");
   }
+
+  private async void BtnProfileActions_Clicked(
+    object sender,
+    EventArgs e) {
+
+    string action =
+      await DisplayActionSheetAsync(
+        "Profil",
+        "Annuler",
+        null,
+        "Charger",
+        "Supprimer le profil");
+
+    switch (action) {
+      case "Charger":
+        BtnLoadProfile_Clicked(sender,e);
+        break;
+
+      case "Supprimer le profil":
+        BtnDeleteProfile_Clicked(sender,e);
+        break;
+    }
+  }
+
+  private async void BtnPrivateKeyActions_Clicked(
+    object sender,
+    EventArgs e) {
+
+    string action =
+      await DisplayActionSheetAsync(
+        "Clé privée",
+        "Annuler",
+        null,
+        "Importer la clé privée",
+        "Supprimer la clé privée");
+
+    switch (action) {
+      case "Importer la clé privée":
+        BtnImportPrivateKey_Clicked(sender,e);
+        break;
+
+      case "Supprimer la clé privée":
+        BtnDeletePrivateKey_Clicked(sender,e);
+        break;
+    }
+  }
 }
