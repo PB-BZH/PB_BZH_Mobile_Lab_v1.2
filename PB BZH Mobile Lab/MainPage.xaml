@@ -101,22 +101,19 @@
                     Text="Enregistrer"
                     Clicked="BtnSaveProfile_Clicked" />
             </Grid>
-            
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                <Button
-                    Grid.Column="0"
-                    Text="Supprimer le profil"
-                    Clicked="BtnDeleteProfile_Clicked"
-                    BackgroundColor="#8A1F1F"
-                    TextColor="White" />
 
-                <Button
-                    Grid.Column="1"
-                    Text="Supprimer la clé privée"
-                    Clicked="BtnDeletePrivateKey_Clicked"
-                    BackgroundColor="#8A1F1F"
-                    TextColor="White" />
-            </Grid>
+            <Button
+                Text="Supprimer le profil"
+                Clicked="BtnDeleteProfile_Clicked"
+                BackgroundColor="#8A1F1F"
+                TextColor="White" />
+
+            <Button
+                Text="Supprimer la clé privée"
+                Clicked="BtnDeletePrivateKey_Clicked"
+                BackgroundColor="#8A1F1F"
+                TextColor="White" />
+            
             <Grid
                 ColumnDefinitions="*,*"
                 RowDefinitions="Auto,Auto"
