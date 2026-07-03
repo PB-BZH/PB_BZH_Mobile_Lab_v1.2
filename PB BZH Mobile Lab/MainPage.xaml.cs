@@ -178,19 +178,15 @@ public partial class MainPage: ContentPage {
       if (result is null) {
         return;
       }
-
       string pem;
-
       await using (Stream sourceStream =
         await result.OpenReadAsync()) {
         using StreamReader reader = new(sourceStream);
         pem = await reader.ReadToEndAsync();
       }
-
       using RSA rsa = RSA.Create();
       rsa.ImportFromPem(pem);
-      string privateKeyPath = LicenseFileService.GetPrivateKeyPath();
-      await File.WriteAllTextAsync(privateKeyPath,pem);
+      await LicenseFileService.SavePrivateKeyAsync(pem);
       await DisplayAlertAsync("Clé privée","La clé privée RSA a été importée.","OK");
     }
     catch (Exception exception) {

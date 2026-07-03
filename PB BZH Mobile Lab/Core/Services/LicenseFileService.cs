@@ -10,6 +10,7 @@ public sealed class LicenseFileService {
     WriteIndented = false,
     PropertyNamingPolicy = null
   };
+  private const string PrivateKeyStorageKey = "pb_bzh_private_key_pem";
 
   private static readonly JsonSerializerOptions OutputJsonOptions = new() {
     WriteIndented = true
@@ -39,7 +40,7 @@ public sealed class LicenseFileService {
     };
 
     using RSA rsa =
-      LoadPrivateKey();
+      await LoadPrivateKeyAsync();
 
     string unsignedJson =
       JsonSerializer.Serialize(
@@ -93,11 +94,11 @@ public sealed class LicenseFileService {
     }
   }
 
-  private static RSA LoadPrivateKey() {
-    string privateKeyPath =
-      GetPrivateKeyPath();
+  private static async Task<RSA> LoadPrivateKeyAsync() {
+    string? privateKeyPem =
+      await SecureStorage.Default.GetAsync(PrivateKeyStorageKey);
 
-    if (!File.Exists(privateKeyPath)) {
+    if (string.IsNullOrWhiteSpace(privateKeyPem)) {
       throw new InvalidOperationException(
         "La clé privée est introuvable.\n\n" +
         "Importez private_key.pem dans l'application avant de générer une licence.");
@@ -105,10 +106,17 @@ public sealed class LicenseFileService {
 
     RSA rsa = RSA.Create();
 
-    rsa.ImportFromPem(
-      File.ReadAllText(privateKeyPath));
+    rsa.ImportFromPem(privateKeyPem);
 
     return rsa;
+  }
+
+  public static async Task SavePrivateKeyAsync(
+  string privateKeyPem) {
+
+    await SecureStorage.Default.SetAsync(
+      PrivateKeyStorageKey,
+      privateKeyPem);
   }
 
   public static string GetPrivateKeyPath() {
