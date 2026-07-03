@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using PB_BZH_Mobile_Lab.Core.Models;
 using PB_BZH_Mobile_Lab.Core.Services;
 
@@ -166,33 +167,40 @@ public partial class MainPage: ContentPage {
     pickerProfiles.Focus();
   }
 
-  private async void BtnImportPrivateKey_Clicked(
-  object sender,
-  EventArgs e) {
+  private async void BtnImportPrivateKey_Clicked(object sender,EventArgs e) {
 
-    FileResult? result =
-      await FilePicker.Default.PickAsync(new PickOptions {
-        PickerTitle = "Sélectionner private_key.pem"
-      });
+    try {
+      FileResult? result =
+        await FilePicker.Default.PickAsync(new PickOptions {
+          PickerTitle = "Sélectionner private_key.pem"
+        });
 
-    if (result is null) {
-      return;
+      if (result is null) {
+        return;
+      }
+
+      string pem;
+
+      await using (Stream sourceStream =
+        await result.OpenReadAsync()) {
+        using StreamReader reader = new(sourceStream);
+        pem = await reader.ReadToEndAsync();
+      }
+
+      using RSA rsa = RSA.Create();
+      rsa.ImportFromPem(pem);
+      string privateKeyPath = LicenseFileService.GetPrivateKeyPath();
+      await File.WriteAllTextAsync(privateKeyPath,pem);
+      await DisplayAlertAsync("Clé privée","La clé privée RSA a été importée.","OK");
     }
-
-    await using Stream sourceStream =
-      await result.OpenReadAsync();
-
-    await using FileStream targetStream =
-      File.Create(LicenseFileService.GetPrivateKeyPath());
-
-    await sourceStream.CopyToAsync(targetStream);
-
-    await DisplayAlertAsync(
-      "Clé privée",
-      "La clé privée a été importée.",
-      "OK");
+    catch (Exception exception) {
+      await DisplayAlertAsync(
+        "Clé privée invalide",
+        "Le fichier sélectionné n'est pas une clé privée RSA valide.\n\n" +
+        exception.Message,
+        "OK");
+    }
   }
-
   private void PickerProfiles_SelectedIndexChanged(
   object sender,
   EventArgs e) {
