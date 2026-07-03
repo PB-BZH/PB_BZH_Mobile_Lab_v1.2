@@ -27,7 +27,7 @@
 
             <VerticalStackLayout Spacing="1">
                 <Label
-                    Text="Produit"
+                    Text="Produit *"
                     FontSize="11"
                     TextColor="#444444"
                     Margin="0,0,0,-4" />
@@ -39,7 +39,7 @@
 
             <VerticalStackLayout Spacing="1">
                 <Label
-                    Text="Identifiant licence"
+                    Text="Identifiant licence *"
                     FontSize="11"
                     TextColor="#444444"
                     Margin="0,0,0,-4" />
@@ -51,7 +51,7 @@
 
             <VerticalStackLayout Spacing="1">
                 <Label
-                    Text="Nom du client"
+                    Text="Nom du client *"
                     FontSize="11"
                     TextColor="#444444"
                     Margin="0,0,0,-4" />
@@ -85,7 +85,7 @@
 
             <VerticalStackLayout Spacing="1">
                 <Label
-                    Text="Hash de la machine"
+                    Text="Hash de la machine *"
                     FontSize="11"
                     TextColor="#444444"
                     Margin="0,0,0,-4" />
