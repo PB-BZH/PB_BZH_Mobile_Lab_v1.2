@@ -312,13 +312,37 @@ public partial class MainPage: ContentPage {
 
   private async void BtnShareLicense_Clicked(object sender,EventArgs e) {
     if (string.IsNullOrWhiteSpace(_lastGeneratedLicenseFilePath) || !File.Exists(_lastGeneratedLicenseFilePath)) {
-      LicenseProfile profile = ApplyUIToProfile();
-      _lastGeneratedLicenseFilePath = await _licenseFileService.GenerateLicenseFileAsync(profile);
+      await DisplayAlertAsync("Partager","Générez d'abord une licence avant de la partager.","OK");
+      return;
     }
-
     await Share.Default.RequestAsync(new ShareFileRequest {
       Title = "Partager la licence",
       File = new ShareFile(_lastGeneratedLicenseFilePath)
     });
+  }
+
+  private async void BtnDeletePrivateKey_Clicked(
+    object sender,
+    EventArgs e) {
+
+    bool confirmation =
+      await DisplayAlertAsync(
+        "Clé privée",
+        "Supprimer la clé privée importée ?",
+        "Supprimer",
+        "Annuler");
+
+    if (!confirmation) {
+      return;
+    }
+
+    LicenseFileService.DeletePrivateKey();
+
+    await RefreshPrivateKeyStatusAsync();
+
+    await DisplayAlertAsync(
+      "Clé privée",
+      "La clé privée a été supprimée.",
+      "OK");
   }
 }
