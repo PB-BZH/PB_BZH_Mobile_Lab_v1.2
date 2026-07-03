@@ -1,0 +1,122 @@
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Rr]elease/
+[Dd]ebug/
+x64/
+x86/
+ARM/
+ARM64/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.vsp
+*.vspx
+*.psess
+*.vssscc
+*.vspscc
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# .NET
+project.assets.json
+project.nuget.cache
+*.nupkg
+*.snupkg
+TestResult*/
+TestResults/
+coverage/
+
+# MAUI / Android generated files
+*.apk
+*.aab
+*.ap_
+*.dex
+*.keystore
+*.jks
+*.idsig
+*.mapping
+*.prof
+*.profm
+Resources/Raw/**/*.tmp
+
+# Android / Java tooling
+.gradle/
+local.properties
+
+# iOS / macOS generated files, if targets are added later
+*.ipa
+*.xcarchive
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# Windows packaging generated files
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+*.cer
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+*.swp
+*.cache
+*.pid
+*.dmp
+*.dump
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# PB-BZH sensitive licensing files
+private_key.pem
+public_key.pem
+**/private_key.pem
+**/public_key.pem
+license.lic
+*.lic
+password.json
+*.pfx
+*.p12
+*.pem
+Keys/
+keys/
+Licenses/
+licenses/
+GeneratedLicenses/
+generated-licenses/
+
+# Local application data / exported profiles
+Profiles/
+profiles/
+AppData/
+appdata/
+*.profile.json
+*.profiles.json
+license-profile.json
+license-profiles.json
+
+# Publish output
+publish/
+Publish/
+artifacts/
+Artifacts/
