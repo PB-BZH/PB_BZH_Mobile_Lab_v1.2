@@ -20,7 +20,8 @@ public partial class MainPage: ContentPage {
   }
 
   private void ApplyProfileToUI(
-    LicenseProfile profile) {
+    LicenseProfile profile,
+    bool clearGeneratedLicense = true) {
     _profile = profile;
     txtProductId.Text = profile.ProductId;
     txtLicenseId.Text = profile.LicenseId;
@@ -34,6 +35,9 @@ public partial class MainPage: ContentPage {
     chkMaintenanceUnlimited.IsChecked = profile.MaintenanceUntil is null;
     dtpMaintenanceUntil.IsEnabled = profile.MaintenanceUntil is not null;
     dtpMaintenanceUntil.Date = (profile.MaintenanceUntil ?? DateOnly.FromDateTime(DateTime.Today)).ToDateTime(TimeOnly.MinValue);
+    if (clearGeneratedLicense) {
+      ClearGeneratedLicense();
+    }
   }
 
   private LicenseProfile ApplyUIToProfile() {
@@ -96,7 +100,9 @@ public partial class MainPage: ContentPage {
       }
 
       pickerProfiles.SelectedIndex = selectedIndex;
-      ApplyProfileToUI(_profiles[selectedIndex]);
+      ApplyProfileToUI(
+        _profiles[selectedIndex],
+        clearGeneratedLicense: string.IsNullOrWhiteSpace(selectedProfileId));
     }
     finally {
       _loadingProfiles = false;
@@ -308,6 +314,13 @@ public partial class MainPage: ContentPage {
     btnToggleResult.Text = txtResult.IsVisible
       ? "Masquer JSON"
       : "JSON";
+  }
+
+  private void ClearGeneratedLicense() {
+    _lastGeneratedLicenseFilePath = null;
+    txtResult.Text = string.Empty;
+    txtResult.IsVisible = false;
+    btnToggleResult.Text = "JSON";
   }
 
   private async void BtnShareLicense_Clicked(object sender,EventArgs e) {
