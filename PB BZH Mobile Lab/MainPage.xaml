@@ -7,7 +7,7 @@
 
    
     <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="14">
+        <VerticalStackLayout Padding="22,10" Spacing="8">
             <Label Text="Profil" />
             <Picker
                 x:Name="pickerProfiles"
@@ -25,29 +25,74 @@
                 FontAttributes="Bold"
                 HorizontalOptions="Center" />
 
-            <Entry
-                x:Name="txtProductId"
-                Placeholder="Produit" />
+            <VerticalStackLayout Spacing="1">
+                <Label
+                    Text="Produit"
+                    FontSize="11"
+                    TextColor="#444444"
+                    Margin="0,0,0,-4" />
 
-            <Entry
-                x:Name="txtLicenseId"
-                Placeholder="Identifiant licence" />
+                <Entry
+                    x:Name="txtProductId"
+                    Placeholder="Produit" />
+            </VerticalStackLayout>
 
-            <Entry
-                x:Name="txtCustomerName"
-                Placeholder="Client" />
+            <VerticalStackLayout Spacing="1">
+                <Label
+                    Text="Identifiant licence"
+                    FontSize="11"
+                    TextColor="#444444"
+                    Margin="0,0,0,-4" />
 
-            <Entry
-                x:Name="txtSite"
-                Placeholder="Site" />
+                <Entry
+                    x:Name="txtLicenseId"
+                    Placeholder="Identifiant licence" />
+            </VerticalStackLayout>
 
-            <Entry
-                x:Name="txtEmailContact"
-                Placeholder="Email" />
+            <VerticalStackLayout Spacing="1">
+                <Label
+                    Text="Nom du client"
+                    FontSize="11"
+                    TextColor="#444444"
+                    Margin="0,0,0,-4" />
+                
+                <Entry
+                    x:Name="txtCustomerName"
+                    Placeholder="Client" />
+            </VerticalStackLayout>
 
-            <Entry
-                x:Name="txtMachineHash"
-                Placeholder="Machine hash" />
+            <VerticalStackLayout Spacing="1">
+                <Label
+                    Text="Site du client"
+                    FontSize="11"
+                    TextColor="#444444"
+                    Margin="0,0,0,-4" />
+                <Entry
+                    x:Name="txtSite"
+                    Placeholder="Site" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="1">
+                <Label
+                    Text="Email du contact"
+                    FontSize="11"
+                    TextColor="#444444"
+                    Margin="0,0,0,-4" />
+                <Entry
+                    x:Name="txtEmailContact"
+                    Placeholder="Email" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="1">
+                <Label
+                    Text="Hash de la machine"
+                    FontSize="11"
+                    TextColor="#444444"
+                    Margin="0,0,0,-4" />
+                <Entry
+                    x:Name="txtMachineHash"
+                    Placeholder="Machine hash" />
+            </VerticalStackLayout>
 
             <Grid ColumnDefinitions="150,35,200" ColumnSpacing="2">
                 <DatePicker 
