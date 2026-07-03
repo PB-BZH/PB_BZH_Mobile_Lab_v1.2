@@ -119,10 +119,8 @@ public sealed class LicenseFileService {
       privateKeyPem);
   }
 
-  public static string GetPrivateKeyPath() {
-    return Path.Combine(
-      FileSystem.AppDataDirectory,
-      "private_key.pem");
+  public static void DeletePrivateKey() {
+    SecureStorage.Default.Remove(PrivateKeyStorageKey);
   }
 
   private static string BuildFileName(
