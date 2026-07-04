@@ -46,6 +46,8 @@ coverage/
 *.mapping
 *.prof
 *.profm
+*.sha256.txt
+*.lic
 Resources/Raw/**/*.tmp
 
 # Android / Java tooling
