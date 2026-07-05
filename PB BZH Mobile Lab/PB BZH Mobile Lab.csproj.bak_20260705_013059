@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net10.0-android</TargetFrameworks>
-    
-		<!--<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>-->
-		
+    <!--
+		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+		-->
     <!-- Note for MacCatalyst:
 		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
 		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
@@ -32,8 +32,12 @@
     <!-- App Identifier -->
     <ApplicationId>com.companyname.pbbzhmobilelab</ApplicationId>
     <!-- Versions -->
+    <ApplicationDisplayVersion>1.2.1</ApplicationDisplayVersion>
+    <ApplicationVersion>1.2.1</ApplicationVersion>
     <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
     <WindowsPackageType>None</WindowsPackageType>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
@@ -41,19 +45,19 @@
     <ProductId>PB BZH Mobile Lab</ProductId>
     <ProductFolder>PB BZH Mobile Lab</ProductFolder>
     <Company>PB BZH Concept</Company>
-    <Version>1.2.2</Version>
+    <Version>1.2.1</Version>
     <UpgradeCode>C9AE3516-9E82-4A46-BDC5-F701B3A84481</UpgradeCode>
     <BundleUpgradeCode>A26DDB73-FA93-4C51-9A58-0EEE3E713626</BundleUpgradeCode>
     <WebBundleUpgradeCode>4A07080A-BBE8-4BB9-B387-5204865A0333</WebBundleUpgradeCode>
-    <AssemblyVersion>1.2.2.0</AssemblyVersion>
-    <FileVersion>1.2.2.0</FileVersion>
-    <InformationalVersion>1.2.2</InformationalVersion>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
+    <InformationalVersion>1.2.1</InformationalVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationTitle>PB BZH License Generator</ApplicationTitle>
     <ApplicationId>fr.pbbzhconcept.licensegenerator</ApplicationId>
-    <ApplicationDisplayVersion>1.2.2</ApplicationDisplayVersion>
-    <ApplicationVersion>1.2.2</ApplicationVersion>
+    <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+    <ApplicationVersion>2</ApplicationVersion>
   </PropertyGroup>
   <ItemGroup>
     <MauiIcon Include="Resources\AppIcon\appicon.png" />
