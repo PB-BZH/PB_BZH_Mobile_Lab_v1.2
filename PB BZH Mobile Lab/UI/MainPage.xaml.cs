@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using PB_BZH_Mobile_Lab.Core.Models;
 using PB_BZH_Mobile_Lab.Core.Services;
 
-namespace PB_BZH_Mobile_Lab;
+namespace PB_BZH_Mobile_Lab.UI;
 
 public partial class MainPage: ContentPage {
   private LicenseProfile _profile = new();
@@ -61,6 +61,11 @@ public partial class MainPage: ContentPage {
   protected override async void OnAppearing() {
     base.OnAppearing();
 
+    await LoadProfilesAsync();
+    await RefreshPrivateKeyStatusAsync();
+  }
+
+  public async Task RefreshProfilesAfterImportAsync() {
     await LoadProfilesAsync();
     await RefreshPrivateKeyStatusAsync();
   }

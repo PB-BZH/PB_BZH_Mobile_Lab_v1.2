@@ -8,9 +8,7 @@ public sealed class LicenseJsonService {
     WriteIndented = true
   };
 
-  public string GenerateLicenseJson(
-    LicenseProfile profile) {
-
+  public string GenerateLicenseJson(LicenseProfile profile) {
     ApplicationLicense license = new() {
       Product = profile.ProductId.Trim(),
       LicenseId = profile.LicenseId.Trim(),
@@ -28,9 +26,6 @@ public sealed class LicenseJsonService {
       ],
       Signature = string.Empty
     };
-
-    return JsonSerializer.Serialize(
-      license,
-      JsonOptions);
+    return JsonSerializer.Serialize(license,JsonOptions);
   }
 }

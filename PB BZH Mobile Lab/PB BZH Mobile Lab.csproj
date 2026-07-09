@@ -53,7 +53,7 @@
     <ApplicationTitle>PB BZH License Generator</ApplicationTitle>
     <ApplicationId>fr.pbbzhconcept.licensegenerator</ApplicationId>
     <ApplicationDisplayVersion>1.2.2</ApplicationDisplayVersion>
-    <ApplicationVersion>1.2.2</ApplicationVersion>
+    <ApplicationVersion>2</ApplicationVersion>
   </PropertyGroup>
   <ItemGroup>
     <MauiIcon Include="Resources\AppIcon\appicon.png" />
@@ -65,8 +65,5 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\" />
   </ItemGroup>
 </Project>

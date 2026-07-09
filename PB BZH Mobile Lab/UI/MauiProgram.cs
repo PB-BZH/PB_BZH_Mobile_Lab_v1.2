@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.Extensions.Logging;
 
-namespace PB_BZH_Mobile_Lab;
+namespace PB_BZH_Mobile_Lab.UI;
 
 public static class MauiProgram {
   public static MauiApp CreateMauiApp() {

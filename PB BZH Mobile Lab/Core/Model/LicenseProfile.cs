@@ -17,21 +17,17 @@ public sealed class LicenseProfile {
   [JsonIgnore]
   internal string SourceFilePath { get; set; } = string.Empty;
 
-  public string DisplayName =>
-    !string.IsNullOrWhiteSpace(ProfileName)
-      ? ProfileName
-      : BuildDisplayName();
+  public string DisplayName => !string.IsNullOrWhiteSpace(ProfileName)
+    ? ProfileName
+    : BuildDisplayName();
 
   private string BuildDisplayName() {
-    if (!string.IsNullOrWhiteSpace(CustomerName)
-        && !string.IsNullOrWhiteSpace(ProductId)) {
+    if (!string.IsNullOrWhiteSpace(CustomerName) && !string.IsNullOrWhiteSpace(ProductId)) {
       return $"{CustomerName} - {ProductId}";
     }
-
     if (!string.IsNullOrWhiteSpace(ProductId)) {
       return ProductId;
     }
-
     return "Nouveau profil";
   }
 }

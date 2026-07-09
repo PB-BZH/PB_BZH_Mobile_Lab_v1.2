@@ -1,4 +1,4 @@
-namespace PB_BZH_Mobile_Lab;
+namespace PB_BZH_Mobile_Lab.UI;
 
 public partial class App: Application {
   public App() {
